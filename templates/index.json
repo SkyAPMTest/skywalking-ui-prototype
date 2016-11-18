@@ -1,0 +1,58 @@
+{
+	"node1":[
+		{
+			"width":1000,
+			"color":"yellow",
+			"content":"client transaction from start to end"
+		}
+	],
+	"node2":[
+		{
+			"width":900,
+			"color":"blue",
+			"content":"load balancer transaction from start to end"
+		}
+	],
+	"node3":[
+		{
+			"width":200,
+			"color":"red",
+			"content":"authorization"
+		}
+	],
+	"node4":[
+		{
+			"width":200,
+			"color":"green",
+			"content":"billing"
+		}
+	],
+	"node4":[
+		{
+			"width":500,
+			"color":"grey",
+			"content":"resource allocation and provisioning"
+		}
+	],
+	"node5":[
+		{
+			"width":200,
+			"color":"grey",
+			"content":"container start-up"
+		}
+	],
+	"node6":[
+		{
+			"width":200,
+			"color":"grey",
+			"content":"stoage allocation"
+		}
+	],
+	"node7":[
+		{
+			"width":200,
+			"color":"grey",
+			"content":"start-up scripts"
+		}
+	]
+}
