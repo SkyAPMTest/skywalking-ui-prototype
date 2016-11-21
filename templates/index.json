@@ -1,20 +1,68 @@
-{
-    "operationName": "/uri/transaction/serviceA",
+
+[
+  {
+    "operationName": "client transaction from start to end",
     "startTime": 0,
     "duration": 1000,
     "bgcolor":"#f7ae50",
-    "childs": [
-        {
-            "operationName": "FunctionA",
-            "startTime": 100,
-            "duration": 700,
-            "childs": []
-        },
-        {
-            "operationName": "FunctionB",
-            "startTime": 950,
-            "duration": 50,
-            "childs": []
-        }
-    ]
-}
+    "levelId": "0",
+    "parentLevelId": "-1"
+  },
+  {
+    "operationName": "load balancer transaction from start to end",
+    "startTime": 50,
+    "duration": 900,
+    "bgcolor":"#4caaf2",
+    "levelId": "0.0",
+    "parentLevelId": "0"
+  },
+  {
+    "operationName": "auth",
+    "startTime": 60,
+    "duration": 50,
+    "bgcolor":"#eb5c3a",
+    "levelId": "0.0.0",
+    "parentLevelId": "0.0"
+  },
+  {
+    "operationName": "billing",
+    "startTime": 110,
+    "duration": 50,
+    "bgcolor":"#35b376",
+    "levelId": "0.0.1",
+    "parentLevelId": "0.0"
+  },
+  {
+    "operationName": "resource allocation and provisioning",
+    "startTime": 160,
+    "duration": 700,
+    "bgcolor":"#b3b3b3",
+    "levelId": "0.0.2",
+    "parentLevelId": "0.0"
+  },
+  {
+    "operationName": "container start up",
+    "startTime": 400,
+    "duration": 350,
+    "bgcolor":"#b3b3b3",
+    "levelId": "0.0.2.0",
+    "parentLevelId": "0.0.2"
+  },
+  {
+    "operationName": "storage allocation",
+    "startTime": 410,
+    "duration": 200,
+    "bgcolor":"#b3b3b3",
+    "levelId": "0.0.2.0.0",
+    "parentLevelId": "0.0.2.0"
+  },
+  {
+    "operationName": "start-up scripts",
+    "startTime": 610,
+    "duration": 20,
+    "bgcolor":"#b3b3b3",
+    "levelId": "0.0.2.1",
+    "parentLevelId": "0.0.2"
+  }
+]
+    
