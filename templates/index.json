@@ -1,58 +1,67 @@
 {
-	"node1":[
-		{
-			"width":1000,
-			"color":"yellow",
-			"content":"client transaction from start to end"
-		}
-	],
-	"node2":[
-		{
-			"width":900,
-			"color":"blue",
-			"content":"load balancer transaction from start to end"
-		}
-	],
-	"node3":[
-		{
-			"width":200,
-			"color":"red",
-			"content":"authorization"
-		}
-	],
-	"node4":[
-		{
-			"width":200,
-			"color":"green",
-			"content":"billing"
-		}
-	],
-	"node4":[
-		{
-			"width":500,
-			"color":"grey",
-			"content":"resource allocation and provisioning"
-		}
-	],
-	"node5":[
-		{
-			"width":200,
-			"color":"grey",
-			"content":"container start-up"
-		}
-	],
-	"node6":[
-		{
-			"width":200,
-			"color":"grey",
-			"content":"stoage allocation"
-		}
-	],
-	"node7":[
-		{
-			"width":200,
-			"color":"grey",
-			"content":"start-up scripts"
-		}
-	]
+ "name": "client transaction from start to end",
+ "bgcolor":"#f7ae50",
+ "startTime": 0,
+ "duration": 1000,
+ "children": [
+  {
+   "name": "load balancer transaction from start to end",
+   "bgcolor":"#4caaf2",
+   "startTime": 50,
+   "duration": 900,
+   "children": [
+    {
+     "name": "auth",
+     "bgcolor":"#eb5c3a",
+     "startTime": 60,
+     "duration": 50,
+     "children": []
+    },
+    {
+     "name": "billing",
+     "startTime": 110,
+     "bgcolor":"#35b376",
+     "duration": 50,
+     "children": []
+    },
+    {
+      "name": "resource allocation and provisioning",
+      "bgcolor":"#b3b3b3",
+      "startTime": 160,
+      "duration": 700,
+      "children": [
+        {
+          "name": "container start up", 
+          "bgcolor":"#b3b3b3",
+          "startTime": 400,
+          "duration": 350,
+          "children":[]
+        },
+        {
+          "name":"storage allocation",
+          "bgcolor":"#b3b3b3",
+          "startTime": 410,
+          "duration": 200,
+          "children":[]
+        }
+      ]
+    },
+    {
+      "name": "start-up scripts",
+      "bgcolor":"#b3b3b3",
+      "startTime": 610,
+      "duration": 20,
+      "children":[
+        {
+          "name":"storage allocation",
+          "bgcolor":"#b3b3b3",
+          "startTime": 310,
+          "duration": 200,
+          "children":[]
+        }
+      ]
+    }
+   ]
+  }
+ ]
 }
