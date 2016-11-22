@@ -3,7 +3,7 @@ $(document).ready(function() {
         var nodes = [];
         $.ajax({    
             type:"GET",   
-            url:"json.json",   
+            url:"index.json",   
             dataType: "json",  
             success: function(data){ 
                 $.each(data,function(i,item){  
