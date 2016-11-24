@@ -1,7 +1,7 @@
 
 body {
   background: #f9f9f9;
-  font-family: Roboto;
+  font-family: 'Microsoft Yahei';
 }
 h1{
   text-align:center;
@@ -11,38 +11,38 @@ h1{
   margin:0px;
 }
 .chart {
-  font-family: Roboto;
+  font-family: 'Microsoft Yahei';
   border-radius:5px;
   position:relative;
-  min-height: 500px; 
+  /*min-height: 500px; */
   
   margin: 150px auto;
   display: block;
-  border:1px solid #ccc;
-  border-bottom:2px solid #8B96A3;
+  /*border:1px solid #ccc;
+  border-bottom:2px solid #8B96A3;*/
   background: rgba(255, 255, 255, 9);
-  box-shadow: 0 0px 2px 0px #ccc;
+  /*box-shadow: 0 0px 2px 0px #ccc;*/
 }
 
-.chart .nodes {
+/*.chart .nodes {
   position:absolute;
   display: flex;
   flex-direction: column; 
   height: 100%;
   padding: 0;
   margin: 0;
-}
-.chart .nodes li{
+}*/
+/*.chart .nodes li{
   text-align:right;
   font-size:18px;
   margin:5px 0px;
   color:#333;
-}
+}*/
 .chart li{
   list-style: none;
   flex: 1;
   position:relative;
-  padding:10px 0px;
+  padding:5px 0px;
 }
 .chart .duration {
   display: flex;
@@ -51,15 +51,17 @@ h1{
   padding: 0;
   margin: 0;
   height:100%;
+  width: 100%;
 }
 .chart .duration .bar{
   width:0px;
   /*background:#47EAD4;*/
-  padding:10px 0px;
+  padding:5px 0px;
   float:left;
   color:#333;
   /*overflow:hidden;*/
-  text-align:center;
+  /*text-align:center;*/
+  text-align: left;
   border-radius: 20px;
   font-size: 15px;
   font-weight: 600;
@@ -72,6 +74,7 @@ h1{
 }
 .chart .duration .bar span{
   position: absolute;
+  padding-left: 15px;
 }
 .chart .duration .bar:nth-child(odd),#startTime {
     background:#fff;
@@ -111,57 +114,19 @@ h1{
 }
 
 @media only screen and (max-width: 800px) {
-  .chart{
-   width:100%;
- } 
-  .nodes{ 
-    width:20%;
-  }
-  .duration{
-    width: 75%;
-    left:25%;
-  }
   
 }
 
 @media only screen and (min-width: 800px) {
-    .chart{
-     width:90%;
-   } 
-    .nodes{
-      width: 13%;
-  }
-  .duration{
-    width: 85%;
-    left:15%;
-  }
+
 }
 
 @media only screen and (min-width: 1300px) {
-  .chart{
-   width:70%;
-    max-width:1000px;
- } 
-  .nodes{
-    width: 10%;
-  }
-  .duration{
-    width:85%;
-    left:13%;
-  }
+  
 }
 
 @media only screen and (max-width: 500px) {
- .chart{
-   width:100%;
- } 
-  .nodes{
-    width:30%;
-  }
-  .duration{
-    width: 65%;
-    left:35%;
-  }
+  
 }
 
 p{
