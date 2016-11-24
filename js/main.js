@@ -18,6 +18,10 @@ $(document).ready(function() {
                 displayData(nodes);
                 animate();
                 barHover();
+
+                /*计算chart高度*/
+                var chartHeight = ($(".chart li").height()+2*parseInt($(".chart li").css("padding-top")))*(nodes.length);
+                $(".chart").css("height",chartHeight);
             } 
              
         }) 
@@ -30,27 +34,30 @@ $(document).ready(function() {
             $('.duration').html('');
             $('.nodes').html('');
             for (var key in nodes){
-              var startTime = nodes[key].startTime,
-                  duration = nodes[key].duration,
-                  content = nodes[key].content,
-                  bgcolor = nodes[key].bgcolor;
-                  id = nodes[key].id;
-              
-              $('.nodes').append("<li><span>"+key+"</span></li>");
-              $('.duration').append("<li><div data-percentage='"
-                                    +nodes[key].startTime/10
+                var startTime = nodes[key].startTime,
+                    duration = nodes[key].duration,
+                    content = nodes[key].content,
+                    bgcolor = nodes[key].bgcolor,
+                    id = nodes[key].id;
+
+
+                $('.duration').append("<li><div data-percentage='"
+                                    +startTime/10
                                     +"' class='bar'>"
                                     +startTime
                                     +"</div><div data-percentage='"
-                                    +nodes[key].duration/10
+                                    +duration/10
                                     +"' class='bar' id = '"
-                                    +nodes[key].id
+                                    +id
                                     +"' style='background-color:"
-                                    +nodes[key].bgcolor
+                                    +bgcolor
                                     +"'><span>"
                                     +content
                                     +"</span></div></li>"); 
+                // var spanWidth = $(".duration #"+id+" span").width();
+                // $(".duration #"+id+" span").css("margin-left",-spanWidth/2);
             }
+            
         } 
 
 
@@ -60,6 +67,10 @@ $(document).ready(function() {
             $(".duration .bar").delay(1000).each(function(i){
                 var percentage = $(this).data('percentage');
                 $(this).delay(i+"00").animate({'width': percentage + '%'}, 700); 
+            });
+            $(".duration .bar span").css('opacity','0');
+            $(".duration .bar span").delay(1000).each(function(i){
+                $(this).delay((i+5)*100).animate({'opacity': '1'}, 500); 
             });
         }
 
