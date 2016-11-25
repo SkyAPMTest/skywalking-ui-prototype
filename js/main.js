@@ -17,8 +17,9 @@ $(document).ready(function() {
                 })
                 displayData(nodes);
                 animate();
+                drawAxis();
                 barHover();
-
+                $(".tick:last-child text").attr("x","-10");
                 /*计算chart高度*/
                 var chartHeight = ($(".chart li").height()+2*parseInt($(".chart li").css("padding-top")))*(nodes.length);
                 $(".chart").css("height",chartHeight);
@@ -27,7 +28,43 @@ $(document).ready(function() {
         }) 
         //list of nodes
         
-      
+        
+        var margin = {top: 10, right: 10, bottom: 10, left: 10};
+        console.log(margin);
+        var width = $(window).width() - margin.left - margin.right; 
+        var height = 50; 
+        var dataset = [];
+
+
+        function drawAxis(){
+            for (var key in nodes){
+                var startTime = nodes[key].startTime,
+                    duration = nodes[key].duration;
+                dataset.push(startTime+duration);
+                console.log(dataset);
+                console.log(nodes);
+            }
+            var svg = d3.select(".footer").append("svg")  
+                                .attr("width",width)  
+                                .attr("height",height);  
+          
+            var xScale = d3.scale.linear()  
+                                .domain([0,d3.max(dataset)])  
+                                .range([0,width]);  
+                                  
+            var axis = d3.svg.axis() //新建一个坐标轴 
+                        .scale(xScale) //量度  
+                        .orient("top");  //横坐标的刻度标注位于轴上方
+                              
+            svg.append("g")  
+                .attr("class","axis")  
+                .attr("transform","translate(0,30)")  
+                .call(axis);
+            
+        }
+        
+        //draw axis
+
 
         //display data
         function displayData(nodes){
@@ -128,5 +165,6 @@ $(document).ready(function() {
                 $(".chart .duration .bar:nth-child(even)").css("opacity",1);
             });
         }
+        $(window).resize();
     }); 
 });  
