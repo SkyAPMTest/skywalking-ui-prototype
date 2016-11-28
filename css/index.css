@@ -3,6 +3,17 @@ body {
   background: #f9f9f9;
   font-family: 'Microsoft Yahei';
 }
+svg{
+  overflow: visible;
+}
+.axis path, .axis line{  
+  fill: none;  
+  stroke: black;  
+  /*shape-rendering: crispEdges;*/  
+}         
+.axis text {   
+    font-size: 11px;  
+}   
 h1{
   text-align:center;
   color:#393939;
@@ -108,9 +119,11 @@ h1{
 
 .footer{
   position:absolute;
-  bottom:-7%; 
+  top:-20%; 
   right:0px;
   color:#333;
+  text-align: right;
+  font-size: 12px;
 }
 
 @media only screen and (max-width: 800px) {
