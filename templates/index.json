@@ -3,7 +3,7 @@
   {
     "operationName": "client transaction from start to end",
     "startTime": 0,
-    "duration": 1325,
+    "duration": 1425,
     "bgcolor":"#f7ae50",
     "levelId": "0",
     "parentLevelId": "-1",
@@ -71,6 +71,15 @@
     "levelId": "0.0.2.1",
     "parentLevelId": "0.0.2",
     "id":"nodes7"
+  },
+  {
+    "operationName": "new nodes",
+    "startTime": 823,
+    "duration": 40,
+    "bgcolor":"#006ec3",
+    "levelId": "0.0.2.0.1",
+    "parentLevelId": "0.0.2",
+    "id":"nodes8"
   }
 ]
     

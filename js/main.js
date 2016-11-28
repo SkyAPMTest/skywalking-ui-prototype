@@ -34,22 +34,24 @@ $(document).ready(function() {
         var width = $(window).width() - margin.left - margin.right; 
         var height = 50; 
         var dataset = [];
-        var percentScale;
-        
-
+        // var percentScale;
+        // var bits;
+        var bap = []; // bits and percentageScale => bap[0]=> bits; bap[1]=> percentageScale
         function drawAxis(){
             for (var key in nodes){
                 var startTime = nodes[key].startTime,
                     duration = nodes[key].duration;
                 dataset.push(startTime+duration);
             }
-            percentScale = Math.ceil(d3.max(dataset)/100);
+            bits = d3.max(dataset).toString().length;//json中最大值得位数
+            percentScale = Math.ceil(d3.max(dataset)/Math.pow(10,(bits-2)));//坐标轴缩放比例
+            console.log(Math.pow(10,(bits-2)));
             var svg = d3.select(".footer").append("svg")  
                                 .attr("width",width)  
                                 .attr("height",height);  
           
             var xScale = d3.scale.linear()  
-                                .domain([0,percentScale*100])  
+                                .domain([0,percentScale*Math.pow(10,(bits-2))])  
                                 .range([0,width]);  
                                 
             var axis = d3.svg.axis() //新建一个坐标轴 
@@ -62,7 +64,10 @@ $(document).ready(function() {
                 .attr("transform","translate(0,30)")  
                 .call(axis);
 
-            return percentScale;
+            bap.push(bits);
+            bap.push(percentScale);
+            console.log(bap);
+            return bap;
         }
         
         //draw axis
@@ -81,11 +86,11 @@ $(document).ready(function() {
 
 
                 $('.duration').append("<li><div data-percentage='"
-                                    +startTime/percentScale
+                                    +startTime/(bap[1]*Math.pow(10,(bap[0]-4)))
                                     +"' class='bar'>"
                                     +startTime
                                     +"</div><div data-percentage='"
-                                    +duration/percentScale
+                                    +duration/(bap[1]*Math.pow(10,(bap[0]-4)))
                                     +"' class='bar' id = '"
                                     +id
                                     +"' style='background-color:"
