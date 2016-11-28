@@ -3,7 +3,7 @@
   {
     "operationName": "client transaction from start to end",
     "startTime": 0,
-    "duration": 1000,
+    "duration": 1325,
     "bgcolor":"#f7ae50",
     "levelId": "0",
     "parentLevelId": "-1",

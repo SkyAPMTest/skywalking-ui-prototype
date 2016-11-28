@@ -1,6 +1,7 @@
 $(document).ready(function() {  
     $(function() {
         var nodes = [];
+        
         $.ajax({    
             type:"GET",   
             url:"../templates/index.json",   
@@ -15,52 +16,53 @@ $(document).ready(function() {
                     nodes[i].levelId = item.levelId;
                     nodes[i].parentLevelId = item.parentLevelId;
                 })
+                drawAxis();
                 displayData(nodes);
                 animate();
-                drawAxis();
                 barHover();
-                $(".tick:last-child text").attr("x","-10");
+
                 /*计算chart高度*/
                 var chartHeight = ($(".chart li").height()+2*parseInt($(".chart li").css("padding-top")))*(nodes.length);
-                $(".chart").css("height",chartHeight);
+                $(".chart").css({"height":chartHeight,"width":width});
             } 
              
         }) 
         //list of nodes
         
         
-        var margin = {top: 10, right: 10, bottom: 10, left: 10};
-        console.log(margin);
+        var margin = {top: 10, right: 20, bottom: 10, left: 20};
         var width = $(window).width() - margin.left - margin.right; 
         var height = 50; 
         var dataset = [];
-
+        var percentScale;
+        
 
         function drawAxis(){
             for (var key in nodes){
                 var startTime = nodes[key].startTime,
                     duration = nodes[key].duration;
                 dataset.push(startTime+duration);
-                console.log(dataset);
-                console.log(nodes);
             }
+            percentScale = Math.ceil(d3.max(dataset)/100);
             var svg = d3.select(".footer").append("svg")  
                                 .attr("width",width)  
                                 .attr("height",height);  
           
             var xScale = d3.scale.linear()  
-                                .domain([0,d3.max(dataset)])  
+                                .domain([0,percentScale*100])  
                                 .range([0,width]);  
-                                  
+                                
             var axis = d3.svg.axis() //新建一个坐标轴 
                         .scale(xScale) //量度  
-                        .orient("top");  //横坐标的刻度标注位于轴上方
+                        .orient("top")//横坐标的刻度标注位于轴上方
+                        .ticks(20);  
                               
             svg.append("g")  
                 .attr("class","axis")  
                 .attr("transform","translate(0,30)")  
                 .call(axis);
-            
+
+            return percentScale;
         }
         
         //draw axis
@@ -79,11 +81,11 @@ $(document).ready(function() {
 
 
                 $('.duration').append("<li><div data-percentage='"
-                                    +startTime/10
+                                    +startTime/percentScale
                                     +"' class='bar'>"
                                     +startTime
                                     +"</div><div data-percentage='"
-                                    +duration/10
+                                    +duration/percentScale
                                     +"' class='bar' id = '"
                                     +id
                                     +"' style='background-color:"
@@ -165,6 +167,36 @@ $(document).ready(function() {
                 $(".chart .duration .bar:nth-child(even)").css("opacity",1);
             });
         }
-        $(window).resize();
+        function resize(){
+            $.ajax({    
+                type:"GET",   
+                url:"../templates/index.json",   
+                dataType: "json",  
+                success: function(data){ 
+                    $.each(data,function(i,item){  
+                        nodes[i] = data[i];
+                        nodes[i].startTime = item.startTime;
+                        nodes[i].duration = item.duration;
+                        nodes[i].content = item.operationName;
+                        nodes[i].bgcolor = item.bgcolor;
+                        nodes[i].levelId = item.levelId;
+                        nodes[i].parentLevelId = item.parentLevelId;
+                    })
+
+                    width = $(window).width() - margin.left - margin.right;//重新取svg的宽度
+                    d3.selectAll("svg").remove();//清空原绘版区域svg坐标轴
+                    drawAxis();//重新绘制坐标轴
+                    displayData(nodes);
+                    animate();
+                    barHover();
+                    /*计算chart高度*/
+                    chartHeight = ($(".chart li").height()+2*parseInt($(".chart li").css("padding-top")))*(nodes.length);
+                    $(".chart").css({"height":chartHeight,"width":width});
+                } 
+                 
+            })
+            
+        }
+        d3.select(window).on('resize',resize);
     }); 
 });  
