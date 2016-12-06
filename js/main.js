@@ -24,7 +24,6 @@ $(document).ready(function() {
                     nodes[i].modal.process = item.modal.process;
                     nodes[i].modal.exceptionStack = item.modal.exceptionStack;
                     nodes[i].modal.method = item.modal.method;
-                    console.log(nodes[i].modal.method);
                 })
                 drawAxis();
                 displayData(nodes);
@@ -188,13 +187,12 @@ $(document).ready(function() {
             var overlay = $(".md-overlay");
             var modal = $("#modal");
             var close = $(".md-close");
-
+            var flag;
             function removeModal() {
                 modal.removeClass('md-show');
             }
-            $(".md-trigger").click(function(){
+            $(".md-trigger").click(function(event){
                 var nodesid = $(this).attr("id").replace(/[^0-9]/ig,"");
-                console.log(nodesid);
                 var method = nodes[nodesid].modal.method,
                     type = nodes[nodesid].modal.type,
                     cost = nodes[nodesid].modal.cost,
@@ -203,7 +201,6 @@ $(document).ready(function() {
                     hostMessage = nodes[nodesid].modal.hostMessage,
                     process = nodes[nodesid].modal.process,
                     exceptionStack = nodes[nodesid].modal.exceptionStack;
-                console.log(process);
                 $("#method").text(method);
                 $("#type").text(type);
                 $("#cost").text(cost);
@@ -214,9 +211,14 @@ $(document).ready(function() {
                 $("#exceptionStack").text(exceptionStack);
 
                 modal.addClass("md-show");
+                flag = 1;
+                event.stopPropagation();//阻止事件冒泡,影响后面的点击关闭模态框事件 
             })
-            close.click(function(){
-                removeModal();
+            $(".md-overlay").click(function () {
+                if (!$(this).hasClass("md-modal") && flag == 1){
+                    removeModal();
+                    flag = 0;
+                }    
             });
         }
 
