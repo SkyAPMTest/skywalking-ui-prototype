@@ -15,12 +15,21 @@ $(document).ready(function() {
                     nodes[i].bgcolor = item.bgcolor;
                     nodes[i].levelId = item.levelId;
                     nodes[i].parentLevelId = item.parentLevelId;
+                    nodes[i].modal = item.modal;
+                    nodes[i].modal.type = item.modal.type;
+                    nodes[i].modal.cost = item.modal.cost;
+                    nodes[i].modal.businessFeild = item.modal.businessFeild;
+                    nodes[i].modal.code = item.modal.code;
+                    nodes[i].modal.hostMessage = item.modal.hostMessage;
+                    nodes[i].modal.process = item.modal.process;
+                    nodes[i].modal.exceptionStack = item.modal.exceptionStack;
+                    nodes[i].modal.method = item.modal.method;
                 })
                 drawAxis();
                 displayData(nodes);
                 animate();
                 barHover();
-
+                modalEffect();
                 /*计算chart高度*/
                 var chartHeight = ($(".chart li").height()+2*parseInt($(".chart li").css("padding-top")))*(nodes.length);
                 $(".chart").css({"height":chartHeight,"width":width});
@@ -45,8 +54,8 @@ $(document).ready(function() {
             }
             bits = d3.max(dataset).toString().length;//json中最大值得位数
             percentScale = Math.ceil(d3.max(dataset)/Math.pow(10,(bits-2)));//坐标轴缩放比例
-            console.log(Math.pow(10,(bits-2)));
-            var svg = d3.select(".footer").append("svg")  
+            // console.log(Math.pow(10,(bits-2)));
+            var svg = d3.select(".axis").append("svg")  
                                 .attr("width",width)  
                                 .attr("height",height);  
           
@@ -66,7 +75,7 @@ $(document).ready(function() {
 
             bap.push(bits);
             bap.push(percentScale);
-            console.log(bap);
+            // console.log(bap);
             return bap;
         }
         
@@ -91,7 +100,7 @@ $(document).ready(function() {
                                     +startTime
                                     +"</div><div data-percentage='"
                                     +duration/(bap[1]*Math.pow(10,(bap[0]-4)))
-                                    +"' class='bar' id = '"
+                                    +"' data-modal='modal-1' class='bar md-trigger' id = '"
                                     +id
                                     +"' style='background-color:"
                                     +bgcolor
@@ -172,6 +181,50 @@ $(document).ready(function() {
                 $(".chart .duration .bar:nth-child(even)").css("opacity",1);
             });
         }
+
+        //modal dialog show when click trigger
+        function modalEffect() {
+            var overlay = $(".md-overlay");
+            var modal = $("#modal");
+            var close = $(".md-close");
+            var flag;
+            function removeModal() {
+                modal.removeClass('md-show');
+            }
+            $(".md-trigger").click(function(event){
+                var nodesid = $(this).attr("id").replace(/[^0-9]/ig,"");
+                var method = nodes[nodesid].modal.method,
+                    type = nodes[nodesid].modal.type,
+                    cost = nodes[nodesid].modal.cost,
+                    businessField = nodes[nodesid].modal.businessField,
+                    code = nodes[nodesid].modal.code,
+                    hostMessage = nodes[nodesid].modal.hostMessage,
+                    process = nodes[nodesid].modal.process,
+                    exceptionStack = nodes[nodesid].modal.exceptionStack;
+                $("#method").text(method);
+                $("#type").text(type);
+                $("#cost").text(cost);
+                $("#businessField").text(businessField);
+                $("#code").text(code);
+                $("#hostMessage").text(hostMessage);
+                $("#process").text(process);
+                $("#exceptionStack").text(exceptionStack);
+
+                modal.addClass("md-show");
+                flag = 1;
+                event.stopPropagation();//阻止事件冒泡,影响后面的点击关闭模态框事件 
+            })
+            $(".md-overlay").click(function () {
+                if (!$(this).hasClass("md-modal") && flag == 1){
+                    removeModal();
+                    flag = 0;
+                }    
+            });
+        }
+
+
+
+
         function resize(){
             $.ajax({    
                 type:"GET",   
