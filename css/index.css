@@ -86,6 +86,7 @@ h1{
 .chart .duration .bar span{
   position: absolute;
   padding-left: 15px;
+  top: 7px;
 }
 .chart .duration .bar:nth-child(odd),#startTime {
     background:#fff;
